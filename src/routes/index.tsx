@@ -315,6 +315,13 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
   );
 }
 
+function govPresentation(gov: Gov) {
+  if (gov === "Ariana") {
+    return "Le gouvernorat d'Ariana est situé au nord de Tunis, il s'étend sur 482 km² et compte environ 600 000 habitants. Il se distingue par une urbanisation rapide et une forte densité démographique, favorisée par sa proximité avec la capitale. Son territoire regroupe des zones résidentielles, industrielles et agricoles, illustrant une dynamique d'expansion urbaine soutenue.";
+  }
+  return "Le gouvernorat de Manouba est localisé à l'ouest de Tunis, il couvre une superficie de 372 km² pour une population d'environ 410 000 habitants. Son territoire combine des espaces agricoles et des zones urbaines en développement, traduisant une évolution progressive vers une urbanisation structurée tout en conservant un caractère rural marqué.";
+}
+
 function Stat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border bg-background p-3">
