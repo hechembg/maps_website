@@ -289,34 +289,37 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
             })}
           </div>
 
-          <div className="grid gap-6 md:grid-cols-[1.4fr,1fr]">
-            <MapPlaceholder gov={gov} year={year} method={method} />
-            <div className="rounded-2xl border bg-card p-6">
-              <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-                {method}
-              </div>
-              <h4 className="mt-2 text-xl font-bold text-foreground">
-                {gov} — {year}
-              </h4>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                {methodCopy(method, gov, year)}
-              </p>
-              <div className="mt-6 grid grid-cols-2 gap-3 text-xs">
-                <Stat label="Zone urbaine" value={urbanShare(year)} />
-                <Stat label="Agricole" value={agriShare(year)} />
-                <Stat label="Sol nu" value="18%" />
-                <Stat label="Végétation" value="14%" />
-              </div>
+          <div className="rounded-2xl border bg-card p-6">
+            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+              {method}
             </div>
-          </div>
-
-          <div className="mt-8 overflow-hidden rounded-2xl border bg-secondary/40 p-2">
-            <img src={image} alt={`Carte de référence ${gov}`} className="mx-auto h-auto max-h-72 w-auto object-contain" />
+            <h4 className="mt-2 text-xl font-bold text-foreground">
+              {gov} — {year}
+            </h4>
+            <p className="mt-4 text-sm leading-relaxed text-foreground">
+              {govPresentation(gov)}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              {methodCopy(method, gov, year)}
+            </p>
+            <div className="mt-6 grid grid-cols-2 gap-3 text-xs sm:grid-cols-4">
+              <Stat label="Zone urbaine" value={urbanShare(year)} />
+              <Stat label="Agricole" value={agriShare(year)} />
+              <Stat label="Sol nu" value="18%" />
+              <Stat label="Végétation" value="14%" />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function govPresentation(gov: Gov) {
+  if (gov === "Ariana") {
+    return "Le gouvernorat d'Ariana est situé au nord de Tunis, il s'étend sur 482 km² et compte environ 600 000 habitants. Il se distingue par une urbanisation rapide et une forte densité démographique, favorisée par sa proximité avec la capitale. Son territoire regroupe des zones résidentielles, industrielles et agricoles, illustrant une dynamique d'expansion urbaine soutenue.";
+  }
+  return "Le gouvernorat de Manouba est localisé à l'ouest de Tunis, il couvre une superficie de 372 km² pour une population d'environ 410 000 habitants. Son territoire combine des espaces agricoles et des zones urbaines en développement, traduisant une évolution progressive vers une urbanisation structurée tout en conservant un caractère rural marqué.";
 }
 
 function Stat({ label, value }: { label: string; value: string }) {
