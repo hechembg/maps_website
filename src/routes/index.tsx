@@ -345,11 +345,11 @@ function govPresentation(gov: Gov) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border bg-background p-3">
+    <div className="rounded-2xl border border-border bg-background/40 p-4 backdrop-blur transition-colors hover:border-primary/40">
       <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         {label}
       </div>
-      <div className="mt-1 text-lg font-bold text-foreground">{value}</div>
+      <div className="mt-1 text-xl font-bold text-gradient">{value}</div>
     </div>
   );
 }
