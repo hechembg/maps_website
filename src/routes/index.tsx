@@ -126,16 +126,17 @@ function Accueil() {
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
-        <p className="text-base leading-relaxed text-foreground md:col-span-2">
+        <p className="text-base leading-relaxed text-foreground/90 md:col-span-2 md:text-lg">
           Ce site présente l'évolution de l'occupation du sol dans les gouvernorats de{" "}
-          <strong>Manouba</strong> et <strong>Ariana</strong> à travers trois dates clés :{" "}
-          <strong>2003, 2013 et 2023</strong>. À travers une série de cartes thématiques harmonisées,
+          <span className="text-gradient font-semibold">Manouba</span> et{" "}
+          <span className="text-gradient font-semibold">Ariana</span> à travers trois dates clés :{" "}
+          <strong className="text-foreground">2003, 2013 et 2023</strong>. À travers une série de cartes thématiques harmonisées,
           il met en évidence les dynamiques d'urbanisation, la régression des terres agricoles et la
           transformation des paysages périurbains.
         </p>
-        <div className="rounded-2xl border bg-secondary p-5 text-sm text-secondary-foreground">
-          <div className="font-semibold">Cadre géographique</div>
-          <p className="mt-2 text-muted-foreground">
+        <div className="glass-card rounded-2xl p-5 text-sm">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Cadre géographique</div>
+          <p className="mt-2 leading-relaxed text-muted-foreground">
             La carte introduit le périmètre d'étude et situe les zones analysées dans leur contexte
             spatial.
           </p>
