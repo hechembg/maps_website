@@ -50,40 +50,44 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
     { id: "comparaison", label: "Comparaison", icon: <GitCompare className="h-4 w-4" /> },
   ];
   return (
-    <aside className="sticky top-0 flex h-screen w-72 flex-col gap-2 border-r bg-sidebar p-6 text-sidebar-foreground">
+    <aside className="sticky top-0 z-10 flex h-screen w-72 flex-col gap-2 border-r border-sidebar-border bg-sidebar/80 p-6 text-sidebar-foreground backdrop-blur-xl">
       <div className="mb-8">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sidebar-primary">
-          Plateforme SIG
+        <div className="inline-flex items-center gap-2 rounded-full border border-sidebar-border bg-sidebar-accent/40 px-3 py-1">
+          <Sparkles className="h-3 w-3 text-sidebar-primary" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sidebar-primary">
+            Plateforme SIG
+          </span>
         </div>
-        <h1 className="mt-2 text-xl font-bold leading-tight">
+        <h1 className="mt-4 text-2xl font-bold leading-tight tracking-tight">
           SIG-Web
           <br />
-          <span className="text-sidebar-primary">Étalement Urbain</span>
+          <span className="text-gradient">Étalement Urbain</span>
         </h1>
       </div>
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1.5">
         {items.map((it) => {
           const active = view === it.id;
           return (
             <button
               key={it.id}
               onClick={() => setView(it.id)}
-              className={`group flex items-center justify-between rounded-full px-4 py-3 text-sm font-medium transition-all ${
+              className={`group relative flex items-center justify-between overflow-hidden rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
                 active
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-lg"
-                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent"
+                  ? "text-sidebar-primary-foreground shadow-[var(--shadow-glow)]"
+                  : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
               }`}
+              style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
             >
-              <span className="flex items-center gap-3">
+              <span className="relative flex items-center gap-3">
                 {it.icon}
                 {it.label}
               </span>
-              <ChevronRight className={`h-4 w-4 transition-transform ${active ? "translate-x-1" : "opacity-40"}`} />
+              <ChevronRight className={`relative h-4 w-4 transition-transform ${active ? "translate-x-1" : "opacity-40 group-hover:translate-x-1 group-hover:opacity-100"}`} />
             </button>
           );
         })}
       </nav>
-      <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/40 p-4 text-xs text-sidebar-foreground/70">
+      <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/30 p-4 text-xs leading-relaxed text-sidebar-foreground/70 backdrop-blur">
         Suivi de l'urbanisation et de l'occupation du sol — Ariana &amp; Manouba (2003–2023).
       </div>
     </aside>
