@@ -272,13 +272,14 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
               <button
                 key={y}
                 onClick={() => setYear(y)}
-                className={`flex-1 rounded-2xl border px-4 py-6 text-left transition-all ${
+                className={`relative flex-1 overflow-hidden rounded-2xl border px-4 py-6 text-left transition-all duration-300 ${
                   active
-                    ? "border-primary bg-primary text-primary-foreground shadow-lg"
-                    : "bg-card text-foreground hover:border-primary/40"
+                    ? "border-transparent text-primary-foreground shadow-[var(--shadow-glow)]"
+                    : "glass-card text-foreground hover:border-primary/40 hover:-translate-y-0.5"
                 }`}
+                style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
               >
-                <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   Année
                 </div>
                 <div className="mt-1 text-3xl font-bold tracking-tight">{y}</div>
@@ -298,9 +299,10 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
                   onClick={() => setMethod(m)}
                   className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all ${
                     active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-foreground hover:border-primary/40"
+                      ? "border-transparent text-primary-foreground shadow-[var(--shadow-glow)]"
+                      : "border-border glass-card text-foreground hover:border-primary/40"
                   }`}
+                  style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
                 >
                   {m}
                 </button>
@@ -308,12 +310,12 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
             })}
           </div>
 
-          <div className="rounded-2xl border bg-card p-6">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="glass-card rounded-3xl p-7 shadow-[var(--shadow-elegant)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
               {method}
             </div>
-            <h4 className="mt-2 text-xl font-bold text-foreground">
-              {gov} — {year}
+            <h4 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
+              {gov} <span className="text-muted-foreground">·</span> <span className="text-gradient">{year}</span>
             </h4>
             <p className="mt-4 text-sm leading-relaxed text-foreground">
               {govPresentation(gov)}
