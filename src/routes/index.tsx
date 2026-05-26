@@ -432,12 +432,15 @@ function Comparaison() {
 function Bar({ label, value }: { label: string; value: number }) {
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between text-xs font-medium text-foreground">
+      <div className="mb-1.5 flex items-center justify-between text-xs font-semibold text-foreground">
         <span>{label}</span>
-        <span className="text-muted-foreground">{value}%</span>
+        <span className="text-gradient">{value}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${value * 2}%` }} />
+      <div className="h-2 overflow-hidden rounded-full bg-muted/60">
+        <div
+          className="h-full rounded-full transition-[width] duration-700"
+          style={{ width: `${value * 2}%`, backgroundImage: "var(--gradient-primary)" }}
+        />
       </div>
     </div>
   );
@@ -445,11 +448,11 @@ function Bar({ label, value }: { label: string; value: number }) {
 
 function KPI({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border bg-background p-5">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+    <div className="rounded-2xl border border-border bg-background/40 p-5 backdrop-blur transition-all hover:border-primary/40 hover:-translate-y-0.5">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </div>
-      <div className="mt-2 text-2xl font-bold text-foreground">{value}</div>
+      <div className="mt-2 text-2xl font-bold text-gradient">{value}</div>
     </div>
   );
 }
