@@ -96,14 +96,17 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
 
 function SectionHeader({ kicker, title, lead }: { kicker: string; title: string; lead?: string }) {
   return (
-    <header className="mb-10">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-        {kicker}
+    <header className="mb-12">
+      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 backdrop-blur">
+        <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_oklch(0.78_0.16_195)]" />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          {kicker}
+        </span>
       </div>
-      <h2 className="mt-3 text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
+      <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl">
         {title}
       </h2>
-      {lead && <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{lead}</p>}
+      {lead && <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p>}
     </header>
   );
 }
