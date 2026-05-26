@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Layers, GitCompare, ChevronRight, MapPin, Users } from "lucide-react";
+import { Home, Layers, GitCompare, ChevronRight, MapPin, Users, Sparkles } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.png";
 import arianaMap from "@/assets/ariana-map.png";
 import manoubaMap from "@/assets/manouba-map.png";
@@ -24,10 +24,16 @@ function Index() {
   const [view, setView] = useState<View>("accueil");
 
   return (
-    <div className="flex min-h-screen bg-background">
+    <div className="relative flex min-h-screen bg-background">
+      {/* ambient orbs */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute -top-32 -left-32 h-96 w-96 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute top-1/3 -right-32 h-[28rem] w-[28rem] rounded-full bg-accent/20 blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 h-80 w-80 rounded-full bg-primary/10 blur-3xl" />
+      </div>
       <Sidebar view={view} setView={setView} />
-      <main className="flex-1 overflow-x-hidden">
-        <div className="mx-auto max-w-6xl px-8 py-10">
+      <main className="relative flex-1 overflow-x-hidden">
+        <div className="mx-auto max-w-6xl px-8 py-12">
           {view === "accueil" && <Accueil />}
           {view === "cartes" && <CartesThematiques />}
           {view === "comparaison" && <Comparaison />}
@@ -44,40 +50,44 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
     { id: "comparaison", label: "Comparaison", icon: <GitCompare className="h-4 w-4" /> },
   ];
   return (
-    <aside className="sticky top-0 flex h-screen w-72 flex-col gap-2 border-r bg-sidebar p-6 text-sidebar-foreground">
+    <aside className="sticky top-0 z-10 flex h-screen w-72 flex-col gap-2 border-r border-sidebar-border bg-sidebar/80 p-6 text-sidebar-foreground backdrop-blur-xl">
       <div className="mb-8">
-        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sidebar-primary">
-          Plateforme SIG
+        <div className="inline-flex items-center gap-2 rounded-full border border-sidebar-border bg-sidebar-accent/40 px-3 py-1">
+          <Sparkles className="h-3 w-3 text-sidebar-primary" />
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-sidebar-primary">
+            Plateforme SIG
+          </span>
         </div>
-        <h1 className="mt-2 text-xl font-bold leading-tight">
+        <h1 className="mt-4 text-2xl font-bold leading-tight tracking-tight">
           SIG-Web
           <br />
-          <span className="text-sidebar-primary">Étalement Urbain</span>
+          <span className="text-gradient">Étalement Urbain</span>
         </h1>
       </div>
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1.5">
         {items.map((it) => {
           const active = view === it.id;
           return (
             <button
               key={it.id}
               onClick={() => setView(it.id)}
-              className={`group flex items-center justify-between rounded-full px-4 py-3 text-sm font-medium transition-all ${
+              className={`group relative flex items-center justify-between overflow-hidden rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-300 ${
                 active
-                  ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-lg"
-                  : "text-sidebar-foreground/80 hover:bg-sidebar-accent"
+                  ? "text-sidebar-primary-foreground shadow-[var(--shadow-glow)]"
+                  : "text-sidebar-foreground/75 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground"
               }`}
+              style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
             >
-              <span className="flex items-center gap-3">
+              <span className="relative flex items-center gap-3">
                 {it.icon}
                 {it.label}
               </span>
-              <ChevronRight className={`h-4 w-4 transition-transform ${active ? "translate-x-1" : "opacity-40"}`} />
+              <ChevronRight className={`relative h-4 w-4 transition-transform ${active ? "translate-x-1" : "opacity-40 group-hover:translate-x-1 group-hover:opacity-100"}`} />
             </button>
           );
         })}
       </nav>
-      <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/40 p-4 text-xs text-sidebar-foreground/70">
+      <div className="mt-auto rounded-2xl border border-sidebar-border bg-sidebar-accent/30 p-4 text-xs leading-relaxed text-sidebar-foreground/70 backdrop-blur">
         Suivi de l'urbanisation et de l'occupation du sol — Ariana &amp; Manouba (2003–2023).
       </div>
     </aside>
@@ -86,14 +96,17 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
 
 function SectionHeader({ kicker, title, lead }: { kicker: string; title: string; lead?: string }) {
   return (
-    <header className="mb-10">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-        {kicker}
+    <header className="mb-12">
+      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/60 px-3 py-1 backdrop-blur">
+        <span className="h-1.5 w-1.5 rounded-full bg-primary shadow-[0_0_10px_oklch(0.78_0.16_195)]" />
+        <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          {kicker}
+        </span>
       </div>
-      <h2 className="mt-3 text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl">
+      <h2 className="mt-4 text-4xl font-bold leading-[1.05] tracking-tight text-foreground md:text-6xl">
         {title}
       </h2>
-      {lead && <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{lead}</p>}
+      {lead && <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{lead}</p>}
     </header>
   );
 }
@@ -106,21 +119,24 @@ function Accueil() {
         title="SIG-Web Étalement Urbain"
         lead="Suivi de l'urbanisation et de l'occupation du sol — gouvernorats d'Ariana et de Manouba."
       />
-      <div className="overflow-hidden rounded-3xl border bg-card shadow-sm">
-        <img src={heroBanner} alt="SIG-Web Étalement Urbain — Ariana et Manouba" className="h-auto w-full" />
+      <div className="group relative overflow-hidden rounded-[2rem] border border-border glass-card shadow-[var(--shadow-elegant)]">
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-accent/10" />
+        <img src={heroBanner} alt="SIG-Web Étalement Urbain — Ariana et Manouba" className="relative h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/80 to-transparent" />
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
-        <p className="text-base leading-relaxed text-foreground md:col-span-2">
+        <p className="text-base leading-relaxed text-foreground/90 md:col-span-2 md:text-lg">
           Ce site présente l'évolution de l'occupation du sol dans les gouvernorats de{" "}
-          <strong>Manouba</strong> et <strong>Ariana</strong> à travers trois dates clés :{" "}
-          <strong>2003, 2013 et 2023</strong>. À travers une série de cartes thématiques harmonisées,
+          <span className="text-gradient font-semibold">Manouba</span> et{" "}
+          <span className="text-gradient font-semibold">Ariana</span> à travers trois dates clés :{" "}
+          <strong className="text-foreground">2003, 2013 et 2023</strong>. À travers une série de cartes thématiques harmonisées,
           il met en évidence les dynamiques d'urbanisation, la régression des terres agricoles et la
           transformation des paysages périurbains.
         </p>
-        <div className="rounded-2xl border bg-secondary p-5 text-sm text-secondary-foreground">
-          <div className="font-semibold">Cadre géographique</div>
-          <p className="mt-2 text-muted-foreground">
+        <div className="glass-card rounded-2xl p-5 text-sm">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">Cadre géographique</div>
+          <p className="mt-2 leading-relaxed text-muted-foreground">
             La carte introduit le périmètre d'étude et situe les zones analysées dans leur contexte
             spatial.
           </p>
@@ -188,20 +204,23 @@ function GovCard({
   return (
     <button
       onClick={onClick}
-      className="group overflow-hidden rounded-3xl border bg-card text-left shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl"
+      className="group relative overflow-hidden rounded-3xl border border-border glass-card text-left shadow-[var(--shadow-elegant)] transition-all duration-500 hover:-translate-y-2 hover:border-primary/40 hover:shadow-[var(--shadow-glow)]"
     >
-      <div className="aspect-square overflow-hidden bg-muted">
+      <div className="relative aspect-[4/3] overflow-hidden bg-muted">
         <img
           src={image}
           alt={`Carte du gouvernorat de ${gov}`}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-      </div>
-      <div className="p-6">
-        <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
+        <div className="absolute left-5 top-5 inline-flex items-center gap-2 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-white backdrop-blur">
           Gouvernorat
         </div>
-        <h3 className="mt-1 text-2xl font-bold text-foreground">{gov}</h3>
+      </div>
+      <div className="p-6">
+        <h3 className="text-3xl font-bold tracking-tight text-foreground">
+          <span className="text-gradient">{gov}</span>
+        </h3>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
         <div className="mt-5 flex gap-6 text-xs">
           <div className="flex items-center gap-2 text-foreground">
@@ -213,9 +232,9 @@ function GovCard({
             <span className="font-semibold">{population}</span>
           </div>
         </div>
-        <div className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary">
+        <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-semibold text-primary transition-all group-hover:bg-primary/20">
           Explorer les cartes
-          <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
     </button>
@@ -253,13 +272,14 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
               <button
                 key={y}
                 onClick={() => setYear(y)}
-                className={`flex-1 rounded-2xl border px-4 py-6 text-left transition-all ${
+                className={`relative flex-1 overflow-hidden rounded-2xl border px-4 py-6 text-left transition-all duration-300 ${
                   active
-                    ? "border-primary bg-primary text-primary-foreground shadow-lg"
-                    : "bg-card text-foreground hover:border-primary/40"
+                    ? "border-transparent text-primary-foreground shadow-[var(--shadow-glow)]"
+                    : "glass-card text-foreground hover:border-primary/40 hover:-translate-y-0.5"
                 }`}
+                style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
               >
-                <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? "text-primary-foreground/70" : "text-muted-foreground"}`}>
+                <div className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
                   Année
                 </div>
                 <div className="mt-1 text-3xl font-bold tracking-tight">{y}</div>
@@ -279,9 +299,10 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
                   onClick={() => setMethod(m)}
                   className={`rounded-full border px-4 py-2 text-xs font-semibold transition-all ${
                     active
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-card text-foreground hover:border-primary/40"
+                      ? "border-transparent text-primary-foreground shadow-[var(--shadow-glow)]"
+                      : "border-border glass-card text-foreground hover:border-primary/40"
                   }`}
+                  style={active ? { backgroundImage: "var(--gradient-primary)" } : undefined}
                 >
                   {m}
                 </button>
@@ -289,12 +310,12 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
             })}
           </div>
 
-          <div className="rounded-2xl border bg-card p-6">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          <div className="glass-card rounded-3xl p-7 shadow-[var(--shadow-elegant)]">
+            <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.2em] text-primary">
               {method}
             </div>
-            <h4 className="mt-2 text-xl font-bold text-foreground">
-              {gov} — {year}
+            <h4 className="mt-3 text-2xl font-bold tracking-tight text-foreground">
+              {gov} <span className="text-muted-foreground">·</span> <span className="text-gradient">{year}</span>
             </h4>
             <p className="mt-4 text-sm leading-relaxed text-foreground">
               {govPresentation(gov)}
@@ -324,11 +345,11 @@ function govPresentation(gov: Gov) {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border bg-background p-3">
+    <div className="rounded-2xl border border-border bg-background/40 p-4 backdrop-blur transition-colors hover:border-primary/40">
       <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
         {label}
       </div>
-      <div className="mt-1 text-lg font-bold text-foreground">{value}</div>
+      <div className="mt-1 text-xl font-bold text-gradient">{value}</div>
     </div>
   );
 }
@@ -367,37 +388,38 @@ function Comparaison() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {(["Ariana", "Manouba"] as Gov[]).map((g) => (
-          <div key={g} className="overflow-hidden rounded-3xl border bg-card shadow-sm">
-            <div className="aspect-[4/3] overflow-hidden bg-muted">
+          <div key={g} className="group overflow-hidden rounded-3xl border border-border glass-card shadow-[var(--shadow-elegant)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-glow)]">
+            <div className="relative aspect-[4/3] overflow-hidden bg-muted">
               <img
                 src={g === "Ariana" ? arianaMap : manoubaMap}
                 alt={`Carte ${g}`}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold text-foreground">{g}</h3>
-              <div className="mt-4 space-y-3">
+              <h3 className="text-2xl font-bold tracking-tight"><span className="text-gradient">{g}</span></h3>
+              <div className="mt-5 space-y-3.5">
                 {YEARS.map((y) => (
                   <Bar key={y} label={y} value={Number(urbanShare(y).replace("%", ""))} />
                 ))}
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">Part des zones urbaines (%)</p>
+              <p className="mt-4 text-xs uppercase tracking-[0.18em] text-muted-foreground">Part des zones urbaines (%)</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 rounded-3xl border bg-card p-8 shadow-sm">
-        <h3 className="text-xl font-bold text-foreground">Lecture comparative</h3>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+      <div className="mt-10 glass-card rounded-3xl p-8 shadow-[var(--shadow-elegant)]">
+        <h3 className="text-2xl font-bold tracking-tight text-foreground">Lecture comparative</h3>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
           Entre 2003 et 2023, les deux gouvernorats connaissent une expansion urbaine soutenue.
           L'Ariana, plus densément peuplée, présente une saturation plus rapide de son tissu bâti,
           tandis que la Manouba conserve davantage de terres agricoles, avec une dynamique
           d'urbanisation progressive le long des axes routiers principaux.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
           <KPI label="Superficie Ariana" value="482 km²" />
           <KPI label="Superficie Manouba" value="372 km²" />
           <KPI label="Période d'étude" value="2003 – 2023" />
@@ -410,12 +432,15 @@ function Comparaison() {
 function Bar({ label, value }: { label: string; value: number }) {
   return (
     <div>
-      <div className="mb-1 flex items-center justify-between text-xs font-medium text-foreground">
+      <div className="mb-1.5 flex items-center justify-between text-xs font-semibold text-foreground">
         <span>{label}</span>
-        <span className="text-muted-foreground">{value}%</span>
+        <span className="text-gradient">{value}%</span>
       </div>
-      <div className="h-2 overflow-hidden rounded-full bg-muted">
-        <div className="h-full rounded-full bg-primary" style={{ width: `${value * 2}%` }} />
+      <div className="h-2 overflow-hidden rounded-full bg-muted/60">
+        <div
+          className="h-full rounded-full transition-[width] duration-700"
+          style={{ width: `${value * 2}%`, backgroundImage: "var(--gradient-primary)" }}
+        />
       </div>
     </div>
   );
@@ -423,11 +448,11 @@ function Bar({ label, value }: { label: string; value: number }) {
 
 function KPI({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border bg-background p-5">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+    <div className="rounded-2xl border border-border bg-background/40 p-5 backdrop-blur transition-all hover:border-primary/40 hover:-translate-y-0.5">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
         {label}
       </div>
-      <div className="mt-2 text-2xl font-bold text-foreground">{value}</div>
+      <div className="mt-2 text-2xl font-bold text-gradient">{value}</div>
     </div>
   );
 }
