@@ -388,37 +388,38 @@ function Comparaison() {
 
       <div className="grid gap-6 md:grid-cols-2">
         {(["Ariana", "Manouba"] as Gov[]).map((g) => (
-          <div key={g} className="overflow-hidden rounded-3xl border bg-card shadow-sm">
-            <div className="aspect-[4/3] overflow-hidden bg-muted">
+          <div key={g} className="group overflow-hidden rounded-3xl border border-border glass-card shadow-[var(--shadow-elegant)] transition-all duration-500 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[var(--shadow-glow)]">
+            <div className="relative aspect-[4/3] overflow-hidden bg-muted">
               <img
                 src={g === "Ariana" ? arianaMap : manoubaMap}
                 alt={`Carte ${g}`}
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-card via-card/20 to-transparent" />
             </div>
             <div className="p-6">
-              <h3 className="text-xl font-bold text-foreground">{g}</h3>
-              <div className="mt-4 space-y-3">
+              <h3 className="text-2xl font-bold tracking-tight"><span className="text-gradient">{g}</span></h3>
+              <div className="mt-5 space-y-3.5">
                 {YEARS.map((y) => (
                   <Bar key={y} label={y} value={Number(urbanShare(y).replace("%", ""))} />
                 ))}
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">Part des zones urbaines (%)</p>
+              <p className="mt-4 text-xs uppercase tracking-[0.18em] text-muted-foreground">Part des zones urbaines (%)</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-10 rounded-3xl border bg-card p-8 shadow-sm">
-        <h3 className="text-xl font-bold text-foreground">Lecture comparative</h3>
-        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
+      <div className="mt-10 glass-card rounded-3xl p-8 shadow-[var(--shadow-elegant)]">
+        <h3 className="text-2xl font-bold tracking-tight text-foreground">Lecture comparative</h3>
+        <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
           Entre 2003 et 2023, les deux gouvernorats connaissent une expansion urbaine soutenue.
           L'Ariana, plus densément peuplée, présente une saturation plus rapide de son tissu bâti,
           tandis que la Manouba conserve davantage de terres agricoles, avec une dynamique
           d'urbanisation progressive le long des axes routiers principaux.
         </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-7 grid gap-4 md:grid-cols-3">
           <KPI label="Superficie Ariana" value="482 km²" />
           <KPI label="Superficie Manouba" value="372 km²" />
           <KPI label="Période d'étude" value="2003 – 2023" />
