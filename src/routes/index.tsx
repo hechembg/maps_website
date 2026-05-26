@@ -119,8 +119,10 @@ function Accueil() {
         title="SIG-Web Étalement Urbain"
         lead="Suivi de l'urbanisation et de l'occupation du sol — gouvernorats d'Ariana et de Manouba."
       />
-      <div className="overflow-hidden rounded-3xl border bg-card shadow-sm">
-        <img src={heroBanner} alt="SIG-Web Étalement Urbain — Ariana et Manouba" className="h-auto w-full" />
+      <div className="group relative overflow-hidden rounded-[2rem] border border-border glass-card shadow-[var(--shadow-elegant)]">
+        <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-accent/10" />
+        <img src={heroBanner} alt="SIG-Web Étalement Urbain — Ariana et Manouba" className="relative h-auto w-full transition-transform duration-700 group-hover:scale-[1.02]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background/80 to-transparent" />
       </div>
 
       <div className="mt-10 grid gap-6 md:grid-cols-3">
