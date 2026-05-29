@@ -81,7 +81,8 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
 function SectionHeader({ kicker, title, lead }: { kicker: string; title: string; lead?: string }) {
   return (
     <header className="mb-12">
-      <div className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+      <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+        <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
         {kicker}
       </div>
       <h2 className="mt-3 text-4xl font-semibold leading-[1.1] tracking-tight text-foreground md:text-5xl">
