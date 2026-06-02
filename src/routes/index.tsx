@@ -4,6 +4,16 @@ import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, Trend
 import heroAsset from "@/assets/hero.png.asset.json";
 import arianaMapAsset from "@/assets/ariana-map.png.asset.json";
 import manoubaMapAsset from "@/assets/manouba-map.png.asset.json";
+import ariana2003Rf from "@/assets/maps/ariana-2003-rf.jpg.asset.json";
+import ariana2003Svm from "@/assets/maps/ariana-2003-svm.jpg.asset.json";
+import ariana2003Mv from "@/assets/maps/ariana-2003-mv.jpg.asset.json";
+import ariana2003Ext from "@/assets/maps/ariana-2003-ext.jpg.asset.json";
+import ariana2013Rf from "@/assets/maps/ariana-2013-rf.jpg.asset.json";
+import ariana2013Svm from "@/assets/maps/ariana-2013-svm.jpg.asset.json";
+import ariana2013Mv from "@/assets/maps/ariana-2013-mv.jpg.asset.json";
+import ariana2013Ext from "@/assets/maps/ariana-2013-ext.jpg.asset.json";
+import ariana2023Mv from "@/assets/maps/ariana-2023-mv.jpg.asset.json";
+import ariana2023Ext from "@/assets/maps/ariana-2023-ext.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,6 +33,29 @@ const GOV_MAP: Record<Gov, string> = {
   Ariana: arianaMapAsset.url,
   Manouba: manoubaMapAsset.url,
 };
+
+const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, string>>>>> = {
+  Ariana: {
+    "2003": {
+      "Random Forest": ariana2003Rf.url,
+      "Support Vector Machine": ariana2003Svm.url,
+      "Maximum de Vraisemblance": ariana2003Mv.url,
+      "Extension urbaine": ariana2003Ext.url,
+    },
+    "2013": {
+      "Random Forest": ariana2013Rf.url,
+      "Support Vector Machine": ariana2013Svm.url,
+      "Maximum de Vraisemblance": ariana2013Mv.url,
+      "Extension urbaine": ariana2013Ext.url,
+    },
+    "2023": {
+      "Maximum de Vraisemblance": ariana2023Mv.url,
+      "Extension urbaine": ariana2023Ext.url,
+    },
+  },
+  Manouba: {},
+};
+
 
 function Index() {
   const [view, setView] = useState<View>("accueil");
