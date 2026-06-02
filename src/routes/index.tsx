@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Trees, Satellite } from "lucide-react";
+import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Satellite } from "lucide-react";
 import heroAsset from "@/assets/hero.png.asset.json";
 import arianaMapAsset from "@/assets/ariana-map.png.asset.json";
 import manoubaMapAsset from "@/assets/manouba-map.png.asset.json";
