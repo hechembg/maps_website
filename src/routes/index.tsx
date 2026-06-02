@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users } from "lucide-react";
+import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Trees, Satellite } from "lucide-react";
+import heroAsset from "@/assets/hero.png.asset.json";
+import arianaMapAsset from "@/assets/ariana-map.png.asset.json";
+import manoubaMapAsset from "@/assets/manouba-map.png.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -15,6 +18,11 @@ const METHODS = [
   "Maximum de Vraisemblance",
   "Extension urbaine",
 ] as const;
+
+const GOV_MAP: Record<Gov, string> = {
+  Ariana: arianaMapAsset.url,
+  Manouba: manoubaMapAsset.url,
+};
 
 function Index() {
   const [view, setView] = useState<View>("accueil");
@@ -102,7 +110,18 @@ function Accueil() {
         lead="Suivi de l'urbanisation et de l'occupation du sol — gouvernorats d'Ariana et de Manouba."
       />
 
-      <div className="space-y-5 text-base leading-relaxed text-foreground">
+      {/* Hero illustration */}
+      <figure className="overflow-hidden rounded-xl border border-border bg-card">
+        <img
+          src={heroAsset.url}
+          alt="Synthèse visuelle du projet SIG-Web Étalement Urbain"
+          className="block h-auto w-full"
+          loading="eager"
+        />
+      </figure>
+
+      {/* Intro */}
+      <div className="mt-12 space-y-5 text-base leading-relaxed text-foreground">
         <p>
           Ce site présente l'évolution de l'occupation du sol dans les gouvernorats de{" "}
           <strong className="font-semibold">Manouba</strong> et{" "}
@@ -111,16 +130,125 @@ function Accueil() {
           d'urbanisation, la régression des terres agricoles et la transformation des paysages périurbains.
         </p>
         <p className="text-muted-foreground">
-          Ce travail vise à fournir une plateforme interactive permettant aux chercheurs, étudiants et
-          décideurs d'accéder à des représentations visuelles claires et comparatives, afin de mieux
-          comprendre les enjeux liés à l'expansion urbaine et à la gestion durable des territoires.
+          Une plateforme interactive pensée pour les chercheurs, étudiants et décideurs — afin d'accéder
+          à des représentations visuelles claires et comparatives, et de mieux comprendre les enjeux liés
+          à l'expansion urbaine et à la gestion durable des territoires.
         </p>
       </div>
 
-      <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-3">
+      {/* KPIs */}
+      <div className="mt-14 grid gap-px overflow-hidden rounded-lg border border-border bg-border md:grid-cols-4">
         <KPI label="Période d'étude" value="2003 – 2023" />
         <KPI label="Gouvernorats" value="2" />
         <KPI label="Méthodes" value="4" />
+        <KPI label="Dates clés" value="3" />
+      </div>
+
+      {/* Axes du projet */}
+      <section className="mt-16">
+        <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          Axes du projet
+        </h3>
+        <div className="mt-5 grid gap-4 md:grid-cols-3">
+          <FeatureCard
+            icon={<Satellite className="h-4 w-4" />}
+            title="Classification RF"
+            text="Cartographie de l'occupation du sol par Random Forest sur imagerie satellitaire multi-bandes."
+          />
+          <FeatureCard
+            icon={<Layers className="h-4 w-4" />}
+            title="SVM & MV"
+            text="Comparaison des classifications Support Vector Machine et Maximum de Vraisemblance."
+          />
+          <FeatureCard
+            icon={<Building2 className="h-4 w-4" />}
+            title="Extension urbaine"
+            text="Suivi de l'expansion du bâti et de la consommation des terres périurbaines."
+          />
+        </div>
+      </section>
+
+      {/* Zones d'étude */}
+      <section className="mt-16">
+        <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          Zones d'étude
+        </h3>
+        <div className="mt-5 grid gap-4 md:grid-cols-2">
+          <ZoneTeaser
+            name="Ariana"
+            area="482 km²"
+            population="~600 000 hab."
+            text="Au nord de Tunis, urbanisation rapide et forte densité démographique."
+          />
+          <ZoneTeaser
+            name="Manouba"
+            area="372 km²"
+            population="~410 000 hab."
+            text="À l'ouest de Tunis, mix d'espaces agricoles et de zones urbaines en développement."
+          />
+        </div>
+      </section>
+
+      {/* Évolution des zones urbaines */}
+      <section className="mt-16 rounded-lg border border-border bg-card p-7">
+        <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          <TrendingUp className="h-3.5 w-3.5" />
+          Évolution des zones urbaines (%)
+        </div>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+          Une progression continue entre 2003 et 2023
+        </h3>
+        <div className="mt-6 grid grid-cols-3 items-end gap-6 sm:gap-10">
+          {YEARS.map((y) => {
+            const v = Number(urbanShare(y).replace("%", ""));
+            return (
+              <div key={y} className="flex flex-col items-center">
+                <div className="flex h-40 w-full items-end">
+                  <div
+                    className="mx-auto w-10 rounded-t-md bg-primary transition-[height] duration-500"
+                    style={{ height: `${v * 2}%` }}
+                  />
+                </div>
+                <div className="mt-3 text-sm font-medium text-foreground">{y}</div>
+                <div className="text-xs text-muted-foreground">{v}%</div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+    </div>
+  );
+}
+
+function FeatureCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
+        {icon}
+      </div>
+      <h4 className="mt-4 text-sm font-semibold tracking-tight text-foreground">{title}</h4>
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
+    </div>
+  );
+}
+
+function ZoneTeaser({ name, area, population, text }: { name: string; area: string; population: string; text: string }) {
+  return (
+    <div className="rounded-lg border border-border bg-card p-6">
+      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+        Gouvernorat
+      </div>
+      <h4 className="mt-2 text-xl font-semibold tracking-tight text-foreground">{name}</h4>
+      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
+      <div className="mt-4 flex gap-5 text-xs text-foreground">
+        <span className="inline-flex items-center gap-1.5">
+          <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="font-medium">{area}</span>
+        </span>
+        <span className="inline-flex items-center gap-1.5">
+          <Users className="h-3.5 w-3.5 text-muted-foreground" />
+          <span className="font-medium">{population}</span>
+        </span>
       </div>
     </div>
   );
@@ -174,26 +302,36 @@ function GovCard({
   return (
     <button
       onClick={onClick}
-      className="group rounded-lg border border-border bg-card p-7 text-left transition-colors hover:border-foreground/30"
+      className="group overflow-hidden rounded-lg border border-border bg-card text-left transition-colors hover:border-foreground/30"
     >
-      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-        Gouvernorat
+      <div className="aspect-[4/3] w-full overflow-hidden bg-muted">
+        <img
+          src={GOV_MAP[gov]}
+          alt={`Carte du gouvernorat de ${gov}`}
+          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          loading="lazy"
+        />
       </div>
-      <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{gov}</h3>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
-      <div className="mt-5 flex gap-6 text-xs text-foreground">
-        <span className="inline-flex items-center gap-1.5">
-          <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
-          <span className="font-medium">{area}</span>
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Users className="h-3.5 w-3.5 text-muted-foreground" />
-          <span className="font-medium">{population}</span>
-        </span>
-      </div>
-      <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-foreground transition-transform group-hover:translate-x-0.5">
-        Explorer les cartes
-        <ChevronRight className="h-3.5 w-3.5" />
+      <div className="p-7">
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+          Gouvernorat
+        </div>
+        <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{gov}</h3>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{description}</p>
+        <div className="mt-5 flex gap-6 text-xs text-foreground">
+          <span className="inline-flex items-center gap-1.5">
+            <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="font-medium">{area}</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <Users className="h-3.5 w-3.5 text-muted-foreground" />
+            <span className="font-medium">{population}</span>
+          </span>
+        </div>
+        <div className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-foreground transition-transform group-hover:translate-x-0.5">
+          Explorer les cartes
+          <ChevronRight className="h-3.5 w-3.5" />
+        </div>
       </div>
     </button>
   );
@@ -219,6 +357,15 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
         title={`Cartes thématiques — ${gov}`}
         lead={`Superficie ${area} · Population ${population}. Choisissez une année puis une méthode de classification.`}
       />
+
+      <figure className="mb-10 overflow-hidden rounded-lg border border-border bg-muted">
+        <img
+          src={GOV_MAP[gov]}
+          alt={`Carte administrative du gouvernorat de ${gov}`}
+          className="block h-auto w-full"
+          loading="eager"
+        />
+      </figure>
 
       <div className="grid gap-10 lg:grid-cols-[180px,1fr]">
         <div className="flex flex-row gap-2 lg:flex-col">
