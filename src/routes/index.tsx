@@ -450,7 +450,29 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
             <h4 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">
               {gov} <span className="text-muted-foreground">·</span> {year}
             </h4>
-            <p className="mt-4 text-sm leading-relaxed text-foreground">
+
+            {(() => {
+              const url = THEMATIC_MAPS[gov]?.[year]?.[method];
+              return url ? (
+                <figure className="mt-6 overflow-hidden rounded-md border border-border bg-muted">
+                  <img
+                    src={url}
+                    alt={`Carte ${method} — ${gov} ${year}`}
+                    className="block h-auto w-full"
+                    loading="lazy"
+                  />
+                  <figcaption className="border-t border-border bg-card px-4 py-2 text-[11px] text-muted-foreground">
+                    {method} — {gov}, {year}
+                  </figcaption>
+                </figure>
+              ) : (
+                <div className="mt-6 rounded-md border border-dashed border-border bg-muted/40 p-6 text-center text-xs text-muted-foreground">
+                  Carte non disponible pour cette combinaison.
+                </div>
+              );
+            })()}
+
+            <p className="mt-5 text-sm leading-relaxed text-foreground">
               {govPresentation(gov)}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
@@ -463,6 +485,7 @@ function GovDetail({ gov, onBack }: { gov: Gov; onBack: () => void }) {
               <Stat label="Végétation" value="14%" />
             </div>
           </div>
+
         </div>
       </div>
     </div>
