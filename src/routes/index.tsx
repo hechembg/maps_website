@@ -1,33 +1,33 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Satellite } from "lucide-react";
-import heroAsset from "@/assets/hero.png.asset.json";
-import arianaMapAsset from "@/assets/ariana-map.png.asset.json";
-import manoubaMapAsset from "@/assets/manouba-map.png.asset.json";
-import ariana2003Rf from "@/assets/maps/ariana-2003-rf.jpg.asset.json";
-import ariana2003Svm from "@/assets/maps/ariana-2003-svm.jpg.asset.json";
-import ariana2003Mv from "@/assets/maps/ariana-2003-mv.jpg.asset.json";
-import ariana2003Ext from "@/assets/maps/ariana-2003-ext.jpg.asset.json";
-import ariana2013Rf from "@/assets/maps/ariana-2013-rf.jpg.asset.json";
-import ariana2013Svm from "@/assets/maps/ariana-2013-svm.jpg.asset.json";
-import ariana2013Mv from "@/assets/maps/ariana-2013-mv.jpg.asset.json";
-import ariana2013Ext from "@/assets/maps/ariana-2013-ext.jpg.asset.json";
-import ariana2023Rf from "@/assets/maps/ariana-2023-rf.jpg.asset.json";
-import ariana2023Svm from "@/assets/maps/ariana-2023-svm.jpg.asset.json";
-import ariana2023Mv from "@/assets/maps/ariana-2023-mv.jpg.asset.json";
-import ariana2023Ext from "@/assets/maps/ariana-2023-ext.jpg.asset.json";
-import manouba2003Rf from "@/assets/maps/manouba-2003-rf.jpg.asset.json";
-import manouba2003Svm from "@/assets/maps/manouba-2003-svm.jpg.asset.json";
-import manouba2003Mv from "@/assets/maps/manouba-2003-mv.jpg.asset.json";
-import manouba2003Ext from "@/assets/maps/manouba-2003-ext.jpg.asset.json";
-import manouba2013Rf from "@/assets/maps/manouba-2013-rf.jpg.asset.json";
-import manouba2013Svm from "@/assets/maps/manouba-2013-svm.jpg.asset.json";
-import manouba2013Mv from "@/assets/maps/manouba-2013-mv.jpg.asset.json";
-import manouba2013Ext from "@/assets/maps/manouba-2013-ext.jpg.asset.json";
-import manouba2023Rf from "@/assets/maps/manouba-2023-rf.jpg.asset.json";
-import manouba2023Svm from "@/assets/maps/manouba-2023-svm.jpg.asset.json";
-import manouba2023Mv from "@/assets/maps/manouba-2023-mv.jpg.asset.json";
-import manouba2023Ext from "@/assets/maps/manouba-2023-ext.jpg.asset.json";
+import heroAsset from "@/assets/hero.png";
+import arianaMapAsset from "@/assets/ariana-map.png";
+import manoubaMapAsset from "@/assets/manouba-map.png";
+import ariana2003Rf from "@/assets/maps/ariana-2003-rf.jpg";
+import ariana2003Svm from "@/assets/maps/ariana-2003-svm.jpg";
+import ariana2003Mv from "@/assets/maps/ariana-2003-mv.jpg";
+import ariana2003Ext from "@/assets/maps/ariana-2003-ext.jpg";
+import ariana2013Rf from "@/assets/maps/ariana-2013-rf.jpg";
+import ariana2013Svm from "@/assets/maps/ariana-2013-svm.jpg";
+import ariana2013Mv from "@/assets/maps/ariana-2013-mv.jpg";
+import ariana2013Ext from "@/assets/maps/ariana-2013-ext.jpg";
+import ariana2023Rf from "@/assets/maps/ariana-2023-rf.jpg";
+import ariana2023Svm from "@/assets/maps/ariana-2023-svm.jpg";
+import ariana2023Mv from "@/assets/maps/ariana-2023-mv.jpg";
+import ariana2023Ext from "@/assets/maps/ariana-2023-ext.jpg";
+import manouba2003Rf from "@/assets/maps/manouba-2003-rf.jpg";
+import manouba2003Svm from "@/assets/maps/manouba-2003-svm.jpg";
+import manouba2003Mv from "@/assets/maps/manouba-2003-mv.jpg";
+import manouba2003Ext from "@/assets/maps/manouba-2003-ext.jpg";
+import manouba2013Rf from "@/assets/maps/manouba-2013-rf.jpg";
+import manouba2013Svm from "@/assets/maps/manouba-2013-svm.jpg";
+import manouba2013Mv from "@/assets/maps/manouba-2013-mv.jpg";
+import manouba2013Ext from "@/assets/maps/manouba-2013-ext.jpg";
+import manouba2023Rf from "@/assets/maps/manouba-2023-rf.jpg";
+import manouba2023Svm from "@/assets/maps/manouba-2023-svm.jpg";
+import manouba2023Mv from "@/assets/maps/manouba-2023-mv.jpg";
+import manouba2023Ext from "@/assets/maps/manouba-2023-ext.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -44,49 +44,49 @@ const METHODS = [
 ] as const;
 
 const GOV_MAP: Record<Gov, string> = {
-  Ariana: arianaMapAsset.url,
-  Manouba: manoubaMapAsset.url,
+  Ariana: arianaMapAsset,
+  Manouba: manoubaMapAsset,
 };
 
 const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, string>>>>> = {
   Ariana: {
     "2003": {
-      "Random Forest": ariana2003Rf.url,
-      "Support Vector Machine": ariana2003Svm.url,
-      "Maximum de Vraisemblance": ariana2003Mv.url,
-      "Extension urbaine": ariana2003Ext.url,
+      "Random Forest": ariana2003Rf,
+      "Support Vector Machine": ariana2003Svm,
+      "Maximum de Vraisemblance": ariana2003Mv,
+      "Extension urbaine": ariana2003Ext,
     },
     "2013": {
-      "Random Forest": ariana2013Rf.url,
-      "Support Vector Machine": ariana2013Svm.url,
-      "Maximum de Vraisemblance": ariana2013Mv.url,
-      "Extension urbaine": ariana2013Ext.url,
+      "Random Forest": ariana2013Rf,
+      "Support Vector Machine": ariana2013Svm,
+      "Maximum de Vraisemblance": ariana2013Mv,
+      "Extension urbaine": ariana2013Ext,
     },
     "2023": {
-      "Random Forest": ariana2023Rf.url,
-      "Support Vector Machine": ariana2023Svm.url,
-      "Maximum de Vraisemblance": ariana2023Mv.url,
-      "Extension urbaine": ariana2023Ext.url,
+      "Random Forest": ariana2023Rf,
+      "Support Vector Machine": ariana2023Svm,
+      "Maximum de Vraisemblance": ariana2023Mv,
+      "Extension urbaine": ariana2023Ext,
     },
   },
   Manouba: {
     "2003": {
-      "Random Forest": manouba2003Rf.url,
-      "Support Vector Machine": manouba2003Svm.url,
-      "Maximum de Vraisemblance": manouba2003Mv.url,
-      "Extension urbaine": manouba2003Ext.url,
+      "Random Forest": manouba2003Rf,
+      "Support Vector Machine": manouba2003Svm,
+      "Maximum de Vraisemblance": manouba2003Mv,
+      "Extension urbaine": manouba2003Ext,
     },
     "2013": {
-      "Random Forest": manouba2013Rf.url,
-      "Support Vector Machine": manouba2013Svm.url,
-      "Maximum de Vraisemblance": manouba2013Mv.url,
-      "Extension urbaine": manouba2013Ext.url,
+      "Random Forest": manouba2013Rf,
+      "Support Vector Machine": manouba2013Svm,
+      "Maximum de Vraisemblance": manouba2013Mv,
+      "Extension urbaine": manouba2013Ext,
     },
     "2023": {
-      "Random Forest": manouba2023Rf.url,
-      "Support Vector Machine": manouba2023Svm.url,
-      "Maximum de Vraisemblance": manouba2023Mv.url,
-      "Extension urbaine": manouba2023Ext.url,
+      "Random Forest": manouba2023Rf,
+      "Support Vector Machine": manouba2023Svm,
+      "Maximum de Vraisemblance": manouba2023Mv,
+      "Extension urbaine": manouba2023Ext,
     },
   },
 };
@@ -181,7 +181,7 @@ function Accueil() {
       {/* Hero illustration */}
       <figure className="overflow-hidden rounded-xl border border-border bg-card">
         <img
-          src={heroAsset.url}
+          src={heroAsset}
           alt="Synthèse visuelle du projet SIG-Web Étalement Urbain"
           className="block h-auto w-full"
           loading="eager"
