@@ -60,7 +60,19 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
       "Extension urbaine": ariana2023Ext.url,
     },
   },
-  Manouba: {},
+  Manouba: {
+    "2003": {
+      "Random Forest": manouba2003Rf.url,
+      "Support Vector Machine": manouba2003Svm.url,
+      "Maximum de Vraisemblance": manouba2003Mv.url,
+      "Extension urbaine": manouba2003Ext.url,
+    },
+    "2013": {
+      "Random Forest": manouba2013Rf.url,
+      "Maximum de Vraisemblance": manouba2013Mv.url,
+      "Extension urbaine": manouba2013Ext.url,
+    },
+  },
 };
 
 
