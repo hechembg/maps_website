@@ -12,6 +12,8 @@ import ariana2013Rf from "@/assets/maps/ariana-2013-rf.jpg.asset.json";
 import ariana2013Svm from "@/assets/maps/ariana-2013-svm.jpg.asset.json";
 import ariana2013Mv from "@/assets/maps/ariana-2013-mv.jpg.asset.json";
 import ariana2013Ext from "@/assets/maps/ariana-2013-ext.jpg.asset.json";
+import ariana2023Rf from "@/assets/maps/ariana-2023-rf.jpg.asset.json";
+import ariana2023Svm from "@/assets/maps/ariana-2023-svm.jpg.asset.json";
 import ariana2023Mv from "@/assets/maps/ariana-2023-mv.jpg.asset.json";
 import ariana2023Ext from "@/assets/maps/ariana-2023-ext.jpg.asset.json";
 import manouba2003Rf from "@/assets/maps/manouba-2003-rf.jpg.asset.json";
@@ -19,8 +21,13 @@ import manouba2003Svm from "@/assets/maps/manouba-2003-svm.jpg.asset.json";
 import manouba2003Mv from "@/assets/maps/manouba-2003-mv.jpg.asset.json";
 import manouba2003Ext from "@/assets/maps/manouba-2003-ext.jpg.asset.json";
 import manouba2013Rf from "@/assets/maps/manouba-2013-rf.jpg.asset.json";
+import manouba2013Svm from "@/assets/maps/manouba-2013-svm.jpg.asset.json";
 import manouba2013Mv from "@/assets/maps/manouba-2013-mv.jpg.asset.json";
 import manouba2013Ext from "@/assets/maps/manouba-2013-ext.jpg.asset.json";
+import manouba2023Rf from "@/assets/maps/manouba-2023-rf.jpg.asset.json";
+import manouba2023Svm from "@/assets/maps/manouba-2023-svm.jpg.asset.json";
+import manouba2023Mv from "@/assets/maps/manouba-2023-mv.jpg.asset.json";
+import manouba2023Ext from "@/assets/maps/manouba-2023-ext.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -56,6 +63,8 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
       "Extension urbaine": ariana2013Ext.url,
     },
     "2023": {
+      "Random Forest": ariana2023Rf.url,
+      "Support Vector Machine": ariana2023Svm.url,
       "Maximum de Vraisemblance": ariana2023Mv.url,
       "Extension urbaine": ariana2023Ext.url,
     },
@@ -69,8 +78,15 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
     },
     "2013": {
       "Random Forest": manouba2013Rf.url,
+      "Support Vector Machine": manouba2013Svm.url,
       "Maximum de Vraisemblance": manouba2013Mv.url,
       "Extension urbaine": manouba2013Ext.url,
+    },
+    "2023": {
+      "Random Forest": manouba2023Rf.url,
+      "Support Vector Machine": manouba2023Svm.url,
+      "Maximum de Vraisemblance": manouba2023Mv.url,
+      "Extension urbaine": manouba2023Ext.url,
     },
   },
 };
