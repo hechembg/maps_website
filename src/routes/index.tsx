@@ -14,6 +14,13 @@ import ariana2013Mv from "@/assets/maps/ariana-2013-mv.jpg.asset.json";
 import ariana2013Ext from "@/assets/maps/ariana-2013-ext.jpg.asset.json";
 import ariana2023Mv from "@/assets/maps/ariana-2023-mv.jpg.asset.json";
 import ariana2023Ext from "@/assets/maps/ariana-2023-ext.jpg.asset.json";
+import manouba2003Rf from "@/assets/maps/manouba-2003-rf.jpg.asset.json";
+import manouba2003Svm from "@/assets/maps/manouba-2003-svm.jpg.asset.json";
+import manouba2003Mv from "@/assets/maps/manouba-2003-mv.jpg.asset.json";
+import manouba2003Ext from "@/assets/maps/manouba-2003-ext.jpg.asset.json";
+import manouba2013Rf from "@/assets/maps/manouba-2013-rf.jpg.asset.json";
+import manouba2013Mv from "@/assets/maps/manouba-2013-mv.jpg.asset.json";
+import manouba2013Ext from "@/assets/maps/manouba-2013-ext.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -53,7 +60,19 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
       "Extension urbaine": ariana2023Ext.url,
     },
   },
-  Manouba: {},
+  Manouba: {
+    "2003": {
+      "Random Forest": manouba2003Rf.url,
+      "Support Vector Machine": manouba2003Svm.url,
+      "Maximum de Vraisemblance": manouba2003Mv.url,
+      "Extension urbaine": manouba2003Ext.url,
+    },
+    "2013": {
+      "Random Forest": manouba2013Rf.url,
+      "Maximum de Vraisemblance": manouba2013Mv.url,
+      "Extension urbaine": manouba2013Ext.url,
+    },
+  },
 };
 
 
