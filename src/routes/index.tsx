@@ -63,6 +63,8 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
       "Extension urbaine": ariana2013Ext.url,
     },
     "2023": {
+      "Random Forest": ariana2023Rf.url,
+      "Support Vector Machine": ariana2023Svm.url,
       "Maximum de Vraisemblance": ariana2023Mv.url,
       "Extension urbaine": ariana2023Ext.url,
     },
@@ -76,8 +78,15 @@ const THEMATIC_MAPS: Record<Gov, Partial<Record<string, Partial<Record<string, s
     },
     "2013": {
       "Random Forest": manouba2013Rf.url,
+      "Support Vector Machine": manouba2013Svm.url,
       "Maximum de Vraisemblance": manouba2013Mv.url,
       "Extension urbaine": manouba2013Ext.url,
+    },
+    "2023": {
+      "Random Forest": manouba2023Rf.url,
+      "Support Vector Machine": manouba2023Svm.url,
+      "Maximum de Vraisemblance": manouba2023Mv.url,
+      "Extension urbaine": manouba2023Ext.url,
     },
   },
 };
