@@ -113,7 +113,7 @@ function Sidebar({ view, setView }: { view: View; setView: (v: View) => void }) 
   const items: { id: View; label: string; icon: React.ReactNode }[] = [
     { id: "accueil", label: "Accueil", icon: <Home className="h-4 w-4" /> },
     { id: "cartes", label: "Cartes thématiques", icon: <Layers className="h-4 w-4" /> },
-    { id: "comparaison", label: "Comparaison", icon: <GitCompare className="h-4 w-4" /> },
+    { id: "comparaison", label: "Analyse comparative", icon: <GitCompare className="h-4 w-4" /> },
   ];
   return (
     <aside className="sticky top-0 flex h-screen w-64 flex-col border-r border-sidebar-border bg-sidebar p-8 text-sidebar-foreground">
@@ -568,6 +568,26 @@ function methodCopy(method: string, gov: string, year: string) {
   }
 }
 
+const URBAN_DATA: Record<Gov, Record<string, number>> = {
+  Ariana: { "2003": 8.77, "2013": 14.56, "2023": 18.73 },
+  Manouba: { "2003": 5.23, "2013": 5.79, "2023": 11.58 },
+};
+
+const LAND_CLASSES = ["Végétation", "Zone Urbaine", "Eau", "Sol Nu", "Forêt"] as const;
+
+const LAND_DATA: Record<Gov, Record<string, number[]>> = {
+  Ariana: {
+    "2003": [30.38, 8.77, 6.43, 38.42, 16],
+    "2013": [32.62, 14.56, 6.1, 25.17, 21.09],
+    "2023": [35.27, 18.73, 5.94, 18.11, 21.95],
+  },
+  Manouba: {
+    "2003": [37.99, 5.23, 2.01, 33.13, 21.63],
+    "2013": [45.81, 5.79, 2.86, 23.98, 21.51],
+    "2023": [44.35, 11.58, 3.24, 20.56, 20.24],
+  },
+};
+
 function Comparaison() {
   return (
     <div>
@@ -577,23 +597,66 @@ function Comparaison() {
         lead="Évolution comparée de l'occupation du sol et de la pression urbaine entre les deux gouvernorats sur 20 ans."
       />
 
+      {/* Évolution de la zone urbaine par gouvernorat */}
       <div className="grid gap-5 md:grid-cols-2">
         {(["Ariana", "Manouba"] as Gov[]).map((g) => (
           <div key={g} className="rounded-lg border border-border bg-card p-7">
             <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Gouvernorat</div>
             <h3 className="mt-2 text-2xl font-semibold tracking-tight text-foreground">{g}</h3>
+            <p className="mt-1 text-xs text-muted-foreground">Évolution de la zone urbaine</p>
             <div className="mt-6 space-y-4">
               {YEARS.map((y) => (
-                <Bar key={y} label={y} value={Number(urbanShare(y).replace("%", ""))} />
+                <Bar key={y} label={y} value={URBAN_DATA[g][y]} />
               ))}
             </div>
-            <p className="mt-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Part des zones urbaines</p>
+            <p className="mt-5 text-[11px] uppercase tracking-[0.18em] text-muted-foreground">Part des zones urbaines (%)</p>
           </div>
         ))}
       </div>
 
+      {/* Schémas d'évolution des classes d'occupation du sol */}
+      {(["Ariana", "Manouba"] as Gov[]).map((g) => (
+        <div key={g} className="mt-8 rounded-lg border border-border bg-card p-7">
+          <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
+            {g === "Ariana" ? "Schéma" : "Logigramme"} d'évolution
+          </div>
+          <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+            Classes d'occupation du sol — Gouvernorat de {g} (2003–2023)
+          </h3>
+          <div className="mt-6 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border text-left text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+                  <th className="py-2 pr-4 font-semibold">Année</th>
+                  {LAND_CLASSES.map((c) => (
+                    <th key={c} className="py-2 pr-4 font-semibold">{c}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {YEARS.map((y) => (
+                  <tr key={y} className="border-b border-border/60 last:border-0">
+                    <td className="py-3 pr-4 font-semibold text-foreground">{y}</td>
+                    {LAND_DATA[g][y].map((v, i) => (
+                      <td key={i} className="py-3 pr-4 text-muted-foreground">{v.toString().replace(".", ",")}%</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4 text-xs italic text-muted-foreground">
+            Évolution des classes d'occupation du sol dans le Gouvernorat de {g} de 2003 à 2023.
+          </p>
+        </div>
+      ))}
+
+      {/* Comparatif direct Ariana vs Manouba */}
       <div className="mt-10 rounded-lg border border-border bg-card p-8">
-        <h3 className="text-xl font-semibold tracking-tight text-foreground">Lecture comparative</h3>
+        <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">Comparaison</div>
+        <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
+          Comparatif de l'extension urbaine — Ariana &amp; Manouba (2003–2023)
+        </h3>
         <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground">
           Entre 2003 et 2023, les deux gouvernorats connaissent une expansion urbaine soutenue.
           L'Ariana, plus densément peuplée, présente une saturation plus rapide de son tissu bâti,
@@ -601,7 +664,19 @@ function Comparaison() {
           d'urbanisation progressive le long des axes routiers principaux.
         </p>
 
-        <div className="mt-7 grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-3">
+        <div className="mt-7 space-y-6">
+          {YEARS.map((y) => (
+            <div key={y}>
+              <div className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">{y}</div>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Bar label="Ariana" value={URBAN_DATA.Ariana[y]} />
+                <Bar label="Manouba" value={URBAN_DATA.Manouba[y]} />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 grid gap-px overflow-hidden rounded-md border border-border bg-border md:grid-cols-3">
           <KPI label="Superficie Ariana" value="482 km²" />
           <KPI label="Superficie Manouba" value="372 km²" />
           <KPI label="Période d'étude" value="2003 – 2023" />
