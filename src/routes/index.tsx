@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Satellite } from "lucide-react";
+import arianaUrbanChart from "@/assets/charts/ariana-urban.jpg";
+import arianaClassesChart from "@/assets/charts/ariana-classes.jpg";
+import manoubaUrbanChart from "@/assets/charts/manouba-urban.jpg";
+import manoubaClassesChart from "@/assets/charts/manouba-classes.jpg";
+import comparatifChart from "@/assets/charts/comparatif.jpg";
 import heroAsset from "@/assets/hero.png";
 import arianaMapAsset from "@/assets/ariana-map.png";
 import manoubaMapAsset from "@/assets/manouba-map.png";
