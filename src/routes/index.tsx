@@ -594,12 +594,12 @@ function Comparaison() {
             <h3 className="text-2xl font-semibold tracking-tight text-foreground">{b.gov}</h3>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-2">
+          <div className="space-y-5">
             <figure className="overflow-hidden rounded-lg border border-border bg-card">
               <img
                 src={b.urban}
                 alt={`Évolution de la zone urbaine — Gouvernorat de ${b.gov}`}
-                className="h-full w-full object-cover"
+                className="mx-auto block h-auto max-w-full"
               />
               <figcaption className="border-t border-border px-5 py-3 text-xs text-muted-foreground">
                 Évolution de la zone urbaine — {b.gov} (2003 – 2013 – 2023)
@@ -610,7 +610,7 @@ function Comparaison() {
               <img
                 src={b.classes}
                 alt={b.classesLabel}
-                className="h-full w-full object-cover"
+                className="mx-auto block h-auto w-full"
               />
               <figcaption className="border-t border-border px-5 py-3 text-xs text-muted-foreground">
                 {b.classesLabel}
