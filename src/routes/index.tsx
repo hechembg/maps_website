@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp, Building2, Satellite } from "lucide-react";
+import { Home, Layers, GitCompare, ChevronRight, ArrowLeft, MapPin, Users, TrendingUp } from "lucide-react";
 import arianaUrbanChart from "@/assets/charts/ariana-urban.jpg";
 import arianaClassesChart from "@/assets/charts/ariana-classes.jpg";
 import manoubaUrbanChart from "@/assets/charts/manouba-urban.jpg";
@@ -217,88 +217,11 @@ function Accueil() {
         <KPI label="Dates clés" value="3" />
       </div>
 
-      {/* Axes du projet */}
-      <section className="mt-16">
-        <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-          Axes du projet
-        </h3>
-        <div className="mt-5 grid gap-4 md:grid-cols-3">
-          <FeatureCard
-            icon={<Satellite className="h-4 w-4" />}
-            title="Classification RF"
-            text="Cartographie de l'occupation du sol par Random Forest sur imagerie satellitaire multi-bandes."
-          />
-          <FeatureCard
-            icon={<Layers className="h-4 w-4" />}
-            title="SVM & MV"
-            text="Comparaison des classifications Support Vector Machine et Maximum de Vraisemblance."
-          />
-          <FeatureCard
-            icon={<Building2 className="h-4 w-4" />}
-            title="Extension urbaine"
-            text="Suivi de l'expansion du bâti et de la consommation des terres périurbaines."
-          />
-        </div>
-      </section>
-
-      {/* Zones d'étude */}
-      <section className="mt-16">
-        <h3 className="text-[11px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-          Zones d'étude
-        </h3>
-        <div className="mt-5 grid gap-4 md:grid-cols-2">
-          <ZoneTeaser
-            name="Ariana"
-            area="482 km²"
-            population="~600 000 hab."
-            text="Au nord de Tunis, urbanisation rapide et forte densité démographique."
-          />
-          <ZoneTeaser
-            name="Manouba"
-            area="372 km²"
-            population="~410 000 hab."
-            text="À l'ouest de Tunis, mix d'espaces agricoles et de zones urbaines en développement."
-          />
-        </div>
-      </section>
 
     </div>
   );
 }
 
-function FeatureCard({ icon, title, text }: { icon: React.ReactNode; title: string; text: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-        {icon}
-      </div>
-      <h4 className="mt-4 text-sm font-semibold tracking-tight text-foreground">{title}</h4>
-      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p>
-    </div>
-  );
-}
-
-function ZoneTeaser({ name, area, population, text }: { name: string; area: string; population: string; text: string }) {
-  return (
-    <div className="rounded-lg border border-border bg-card p-6">
-      <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-muted-foreground">
-        Gouvernorat
-      </div>
-      <h4 className="mt-2 text-xl font-semibold tracking-tight text-foreground">{name}</h4>
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
-      <div className="mt-4 flex gap-5 text-xs text-foreground">
-        <span className="inline-flex items-center gap-1.5">
-          <MapPin className="h-3.5 w-3.5 text-muted-foreground" />
-          <span className="font-medium">{area}</span>
-        </span>
-        <span className="inline-flex items-center gap-1.5">
-          <Users className="h-3.5 w-3.5 text-muted-foreground" />
-          <span className="font-medium">{population}</span>
-        </span>
-      </div>
-    </div>
-  );
-}
 
 function CartesThematiques() {
   const [gov, setGov] = useState<Gov | null>(null);
