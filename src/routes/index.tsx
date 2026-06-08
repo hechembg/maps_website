@@ -262,33 +262,6 @@ function Accueil() {
         </div>
       </section>
 
-      {/* Évolution des zones urbaines */}
-      <section className="mt-16 rounded-lg border border-border bg-card p-7">
-        <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-          <TrendingUp className="h-3.5 w-3.5" />
-          Évolution des zones urbaines (%)
-        </div>
-        <h3 className="mt-2 text-xl font-semibold tracking-tight text-foreground">
-          Une progression continue entre 2003 et 2023
-        </h3>
-        <div className="mt-6 grid grid-cols-3 items-end gap-6 sm:gap-10">
-          {YEARS.map((y) => {
-            const v = Number(urbanShare(y).replace("%", ""));
-            return (
-              <div key={y} className="flex flex-col items-center">
-                <div className="flex h-40 w-full items-end">
-                  <div
-                    className="mx-auto w-10 rounded-t-md bg-primary transition-[height] duration-500"
-                    style={{ height: `${v * 2}%` }}
-                  />
-                </div>
-                <div className="mt-3 text-sm font-medium text-foreground">{y}</div>
-                <div className="text-xs text-muted-foreground">{v}%</div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
     </div>
   );
 }
